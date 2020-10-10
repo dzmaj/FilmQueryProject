@@ -15,6 +15,7 @@ public class Film {
 	private String rating;
 	private String specialFeatures;
 	private List<Actor> actorList;
+	private List<String> categoryList;
 	public int getId() {
 		return id;
 	}
@@ -195,6 +196,12 @@ public class Film {
 		builder.append("\nActor List: ");
 		builder.append(actorList);
 		return builder.toString();
+	}
+	public List<String> getCategoryList() {
+		return categoryList;
+	}
+	public void setCategoryList(List<String> categoryList) {
+		this.categoryList = categoryList;
 	}
 
 }

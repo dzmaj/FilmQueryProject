@@ -61,10 +61,10 @@ public class FilmQueryApp {
 					System.out.println("Invalid Input");
 					break;
 				}
-			} 
+			}
 		}
 	}
-	
+
 	private void searchFilmByKeyword(Scanner input) {
 		System.out.println("Please enter the keyword to search by:");
 		String keyword;
@@ -74,14 +74,14 @@ public class FilmQueryApp {
 				break LOOP;
 			} catch (NumberFormatException e) {
 				System.out.println("You must enter an integer");
-			} 
+			}
 		}
 		List<Film> films = db.findFilmsByKeyword(keyword);
 		if (films != null) {
 			for (Film film : films) {
 				printFilm(film);
 			}
-			
+
 		} else {
 			System.out.println("No Results");
 		}
@@ -96,16 +96,16 @@ public class FilmQueryApp {
 				break LOOP;
 			} catch (NumberFormatException e) {
 				System.out.println("You must enter an integer");
-			} 
+			}
 		}
 		Film film = db.findFilmById(id);
 		if (film != null) {
-			printFilm(film);			
+			printFilm(film);
 		} else {
 			System.out.println("Film not found");
 		}
 	}
-	
+
 	private void printFilm(Film film) {
 		System.out.println(film);
 		if (displayAll) {
@@ -114,8 +114,16 @@ public class FilmQueryApp {
 			str1 += ", Replacement Cost: " + film.getReplacementCost();
 			String str2 = "Length: " + film.getLength();
 			str2 += ", Special Features: " + film.getSpecialFeatures();
+			String str3 = "Categories: ";
+			if (film.getCategoryList() != null) {
+				for (String cat : film.getCategoryList()) {
+					str3 += cat + ", ";
+				}
+				str3 = str3.substring(0, str3.length() - 2);
+			}
 			System.out.println(str1);
 			System.out.println(str2);
+			System.out.println(str3);
 		}
 		System.out.println();
 	}
