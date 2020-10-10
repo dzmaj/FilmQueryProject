@@ -174,8 +174,6 @@ public class Film {
 		builder.append(id);
 		builder.append(", Title: ");
 		builder.append(title);
-//		builder.append(", description=");
-//		builder.append(description);
 		builder.append(", Release Year: ");
 		builder.append(releaseYear);
 		builder.append(", Language: ");
@@ -192,7 +190,9 @@ public class Film {
 		builder.append(rating);
 //		builder.append(", specialFeatures=");
 //		builder.append(specialFeatures);
-		builder.append(", Actor List: ");
+		builder.append("\nDescription: ");
+		builder.append(description);
+		builder.append("\nActor List: ");
 		builder.append(actorList);
 		return builder.toString();
 	}

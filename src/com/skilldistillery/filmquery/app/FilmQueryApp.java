@@ -10,6 +10,7 @@ import com.skilldistillery.filmquery.entities.Film;
 public class FilmQueryApp {
 
 	DatabaseAccessor db = new DatabaseAccessorObject();
+	private boolean displayAll = false;
 
 	public static void main(String[] args) {
 		FilmQueryApp app = new FilmQueryApp();
@@ -46,6 +47,11 @@ public class FilmQueryApp {
 					searchFilmByKeyword(input);
 					validInput = true;
 					break;
+				case "3":
+					displayAll = !displayAll;
+					System.out.println("Display all film details: " + displayAll);
+					validInput = true;
+					break;
 				case "0":
 					System.out.println("Bye");
 					exit = true;
@@ -73,7 +79,7 @@ public class FilmQueryApp {
 		List<Film> films = db.findFilmsByKeyword(keyword);
 		if (films != null) {
 			for (Film film : films) {
-				System.out.println(film);
+				printFilm(film);
 			}
 			
 		} else {
@@ -82,9 +88,9 @@ public class FilmQueryApp {
 	}
 
 	private void searchFilmById(Scanner input) {
-		System.out.println("Please enter the film ID:");
 		int id;
 		LOOP: while (true) {
+			System.out.println("Please enter the film ID:");
 			try {
 				id = Integer.parseInt(input.nextLine());
 				break LOOP;
@@ -94,16 +100,35 @@ public class FilmQueryApp {
 		}
 		Film film = db.findFilmById(id);
 		if (film != null) {
-			System.out.println(film);			
+			printFilm(film);			
 		} else {
 			System.out.println("Film not found");
 		}
+	}
+	
+	private void printFilm(Film film) {
+		System.out.println(film);
+		if (displayAll) {
+			String str1 = "Rental Duration: " + film.getRentalDuration();
+			str1 += ", Rental Rate: " + film.getRentalRate();
+			str1 += ", Replacement Cost: " + film.getReplacementCost();
+			String str2 = "Length: " + film.getLength();
+			str2 += ", Special Features: " + film.getSpecialFeatures();
+			System.out.println(str1);
+			System.out.println(str2);
+		}
+		System.out.println();
 	}
 
 	private void displayMenu() {
 		System.out.println("---MENU---");
 		System.out.println("1: Look up film by ID");
 		System.out.println("2: Look up film by keyword");
+		if (!displayAll) {
+			System.out.println("3: Display All Film Details");
+		} else {
+			System.out.println("3: Display Less Film Details");
+		}
 		System.out.println("0: Exit Program");
 	}
 
